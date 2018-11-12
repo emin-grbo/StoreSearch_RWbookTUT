@@ -44,7 +44,7 @@ extension SearchVC: UISearchBarDelegate {
         searchResult.name = String(format: "Fake Result %d for", i)
         searchResult.artistName = searchBar.text!
         searchResults.append(searchResult)
-      ]
+      }
     }
           tableView.reloadData()
   }

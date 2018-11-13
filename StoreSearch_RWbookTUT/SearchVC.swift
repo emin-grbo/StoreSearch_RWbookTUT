@@ -13,6 +13,8 @@ class SearchVC: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var searchBar: UISearchBar!
   
+  @IBOutlet weak var searchBar2: UISearchBar!
+  
   var searchResults = [SearchResult]()
   var hasSearched = false
   

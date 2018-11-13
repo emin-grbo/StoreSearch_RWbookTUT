@@ -13,8 +13,6 @@ class SearchVC: UIViewController {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var searchBar: UISearchBar!
   
-  @IBOutlet weak var searchBar2: UISearchBar!
-  
   var searchResults = [SearchResult]()
   var hasSearched = false
   
@@ -43,6 +41,20 @@ class SearchVC: UIViewController {
   }
   
   //------------------------------------------------------------------------
+  
+  
+  //MARK:- Helper methods
+  
+  func iTunesURL(searchText: String) -> URL {
+    let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+    let urlString = String(format: "https://itunes.apple.com/search?term=%@", encodedText)
+    let url = URL(string: urlString)
+    return url!
+  }
+  
+  
+  
+  //------------------------------------------------------------------------
 
 
 }
@@ -55,20 +67,17 @@ extension SearchVC: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     
-    hasSearched = true
-    searchBar.resignFirstResponder()
-    searchResults = []
-    
-    let searchResult = SearchResult()
-    
-    if searchBar.text != "Justin bieber" {
-      for i in 0...2 {
-        searchResult.name = String(format: "Fake Result %d for", i)
-        searchResult.artistName = searchBar.text!
-        searchResults.append(searchResult)
-      }
+    if !searchBar.text!.isEmpty {
+      searchBar.resignFirstResponder()
+      
+      hasSearched = true
+      searchResults = []
+      
+      let url = iTunesURL(searchText: searchBar.text!)
+      print("\(url)")
+      
+      tableView.reloadData()
     }
-          tableView.reloadData()
   }
   
   func position(for bar: UIBarPositioning) -> UIBarPosition {

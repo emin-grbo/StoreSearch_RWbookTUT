@@ -43,7 +43,7 @@ class SearchVC: UIViewController {
   //------------------------------------------------------------------------
   
   
-  //MARK:- Helper methods
+  //MARK:- Helper methods - PARSE!
   
   func iTunesURL(searchText: String) -> URL {
     let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
@@ -52,10 +52,46 @@ class SearchVC: UIViewController {
     return url!
   }
   
+  func performRequests(with url: URL) -> Data? {
+    do {
+      return try Data(contentsOf: url)
+    } catch {
+      print("Download error: \(error.localizedDescription)")
+      showNetworkError()
+      return nil
+    }
+  }
   
+  func parse(data: Data) -> [SearchResult] {
+    do {
+      let decoder = JSONDecoder()
+      let result = try decoder.decode(ResultArray.self, from: data)
+      return result.results
+    } catch {
+      print("JSON Error: \(error)")
+      return []
+    }
+  }
   
   //------------------------------------------------------------------------
 
+  
+  //MARK:- Error handling
+  
+  func showNetworkError() {
+    let alert = UIAlertController(title: "Whoopsy Dayz", message: "There was an error with iTunes Store. \n Pls try again", preferredStyle: .alert)
+    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+    
+    alert.addAction(action)
+    present(alert, animated: true, completion: nil)
+  }
+  
+  
+  
+  //------------------------------------------------------------------------
+  
+  
+  
 
 }
 
@@ -75,6 +111,16 @@ extension SearchVC: UISearchBarDelegate {
       
       let url = iTunesURL(searchText: searchBar.text!)
       print("\(url)")
+      if let data = performRequests(with: url) {
+        searchResults = parse(data: data)
+        
+        //MARK:- sorting
+//        searchResults.sort(by: { result1, result2 in
+//          return result1.name.localizedStandardCompare(result2.name) == .orderedAscending
+//          })
+        //------------------------------------------------------------------------
+        searchResults.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+      }
       
       tableView.reloadData()
     }
@@ -112,7 +158,12 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
       let searchResult = searchResults[indexPath.row]
       cell.nameLabel.text = searchResult.name
-      cell.artistNameLabel.text = searchResult.artistName
+      
+      if searchResult.artist.isEmpty {
+        cell.artistNameLabel.text = "unknown"
+      } else {
+        cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artist, searchResult.type)
+      }
       return cell
     }
   }

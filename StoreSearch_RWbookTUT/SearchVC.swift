@@ -212,6 +212,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    performSegue(withIdentifier: "ShowDetail", sender: indexPath)
   }
   
   func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -219,6 +220,17 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
       return nil
     } else {
       return indexPath
+    }
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   
+    if segue.identifier == "ShowDetail" {
+      let controller = segue.destination as? DetailVC
+      let indexPath = sender as! IndexPath
+      let searchResult = searchResults[indexPath.row]
+      
+      controller?.searchResult = searchResult
     }
   }
   

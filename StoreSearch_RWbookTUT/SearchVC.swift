@@ -55,15 +55,7 @@ class SearchVC: UIViewController {
     return url!
   }
   
-  func performRequests(with url: URL) -> Data? {
-    do {
-      return try Data(contentsOf: url)
-    } catch {
-      print("Download error: \(error.localizedDescription)")
-      showNetworkError()
-      return nil
-    }
-  }
+
   
   func parse(data: Data) -> [SearchResult] {
     do {
@@ -107,6 +99,7 @@ extension SearchVC: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     
     if !searchBar.text!.isEmpty {
+      //removing keyboard
       searchBar.resignFirstResponder()
       
       isLoading = true
@@ -114,19 +107,33 @@ extension SearchVC: UISearchBarDelegate {
       hasSearched = true
       searchResults = []
       
-      let queue = DispatchQueue.global()
-      let url = self.iTunesURL(searchText: searchBar.text!)
+      let url = iTunesURL(searchText: searchBar.text!)
+      let session = URLSession.shared
       
-      queue.async {
-        if let data = self.performRequests(with: url) {
-          self.searchResults = self.parse(data: data)
-          self.searchResults.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
-          DispatchQueue.main.async {
-            self.isLoading = false
-            self.tableView.reloadData()
+      let dataTask = session.dataTask(with: url) { data, response, error in
+        if let error = error {
+          print("Fail: \(error.localizedDescription)")
+        } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+          if let data = data {
+            self.searchResults = self.parse(data: data)
+            self.searchResults.sort(by: <)
+            DispatchQueue.main.async {
+              self.isLoading = false
+              self.tableView.reloadData()
+            }
+            return
           }
-          return
+        } else {
+          print("\(response!)")
+        }
+        DispatchQueue.main.async {
+          self.hasSearched = false
+          self.isLoading = false
+          self.tableView.reloadData()
+          self.showNetworkError()
+        }
       }
+      dataTask.resume()
         
         //MARK:- sorting variants
 //        searchResults.sort(by: { result1, result2 in
@@ -139,7 +146,6 @@ extension SearchVC: UISearchBarDelegate {
         //------------------------------------------------------------------------
       }
     }
-  }
   
   func position(for bar: UIBarPositioning) -> UIBarPosition {
     return .topAttached
@@ -205,3 +211,9 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
   
   
 }
+
+func < (lhs: SearchResult, rhs: SearchResult) -> Bool {
+  return lhs.name.localizedStandardCompare(rhs.name) ==
+    .orderedAscending
+}
+

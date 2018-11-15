@@ -12,17 +12,19 @@ class SearchVC: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var searchBar: UISearchBar!
+  @IBOutlet weak var segmentedControl: UISegmentedControl!
   
   var searchResults = [SearchResult]()
   var hasSearched = false
   var isLoading = false
+  var dataTask: URLSessionDataTask?
   
   override func viewDidLoad() {
     super.viewDidLoad()
 
     searchBar.becomeFirstResponder()
     
-    tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+    tableView.contentInset = UIEdgeInsets(top: 88, left: 0, bottom: 0, right: 0)
     
     //RegisterNibs
     var cellNib = UINib(nibName: TableView.CellIdentifiers.searchResultCell, bundle: nil)
@@ -48,9 +50,18 @@ class SearchVC: UIViewController {
   
   //MARK:- Helper methods - PARSE!
   
-  func iTunesURL(searchText: String) -> URL {
+  func iTunesURL(searchText: String, category: Int) -> URL {
+    
+    let kind: String
+    switch category {
+    case 1: kind = "musicTrack"
+    case 2: kind = "software"
+    case 3: kind = "ebook"
+    default: kind = ""
+    }
+    
     let encodedText = searchText.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-    let urlString = String(format: "https://itunes.apple.com/search?term=%@", encodedText)
+    let urlString = String(format: "https://itunes.apple.com/search?term=%@&limin=200&entity=%@", encodedText, kind)
     let url = URL(string: urlString)
     return url!
   }
@@ -85,6 +96,9 @@ class SearchVC: UIViewController {
   
   //------------------------------------------------------------------------
   
+  @IBAction func segmentChanged(_ sender: UISegmentedControl) {
+    performSearch()
+  }
   
   
 
@@ -97,22 +111,27 @@ class SearchVC: UIViewController {
 extension SearchVC: UISearchBarDelegate {
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    performSearch()
+  }
+  
+  func performSearch() {
     
     if !searchBar.text!.isEmpty {
       //removing keyboard
       searchBar.resignFirstResponder()
       
+      dataTask?.cancel()
       isLoading = true
       tableView.reloadData()
       hasSearched = true
       searchResults = []
       
-      let url = iTunesURL(searchText: searchBar.text!)
+      let url = iTunesURL(searchText: searchBar.text!, category: segmentedControl.selectedSegmentIndex)
       let session = URLSession.shared
       
-      let dataTask = session.dataTask(with: url) { data, response, error in
-        if let error = error {
-          print("Fail: \(error.localizedDescription)")
+      dataTask = session.dataTask(with: url) { data, response, error in
+        if let error = error as NSError?, error.code == -999 {
+          return
         } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
           if let data = data {
             self.searchResults = self.parse(data: data)
@@ -133,7 +152,7 @@ extension SearchVC: UISearchBarDelegate {
           self.showNetworkError()
         }
       }
-      dataTask.resume()
+      dataTask?.resume()
         
         //MARK:- sorting variants
 //        searchResults.sort(by: { result1, result2 in
@@ -186,13 +205,7 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     let cell = tableView.dequeueReusableCell(withIdentifier: TableView.CellIdentifiers.searchResultCell, for: indexPath) as! SearchResultCell
       let searchResult = searchResults[indexPath.row]
-      cell.nameLabel.text = searchResult.name
-      
-      if searchResult.artist.isEmpty {
-        cell.artistNameLabel.text = "unknown"
-      } else {
-        cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artist, searchResult.type)
-      }
+      cell.configure(for: searchResult)
       return cell
     }
   }

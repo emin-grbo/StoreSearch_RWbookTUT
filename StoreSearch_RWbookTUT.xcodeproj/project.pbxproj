@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D711171B21A2E0D700ADF519 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711171A21A2E0D700ADF519 /* GradientView.swift */; };
+		D711171D21A2ECEB00ADF519 /* BounceAnimationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D711171C21A2ECEB00ADF519 /* BounceAnimationVC.swift */; };
 		D71EEB3E219D409D00094B14 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D71EEB3D219D409D00094B14 /* LoadingCell.xib */; };
 		D71EEB40219D954700094B14 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EEB3F219D954700094B14 /* UIImageView+DownloadImage.swift */; };
 		D71EEB42219DBF3200094B14 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EEB41219DBF3200094B14 /* DetailVC.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D711171A21A2E0D700ADF519 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		D711171C21A2ECEB00ADF519 /* BounceAnimationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BounceAnimationVC.swift; sourceTree = "<group>"; };
 		D71EEB3D219D409D00094B14 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		D71EEB3F219D954700094B14 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		D71EEB41219DBF3200094B14 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
@@ -72,10 +76,12 @@
 				D7A173422199B3BB0005A937 /* SearchVC.swift */,
 				D71EEB43219DCDB100094B14 /* DimmingPresentationController.swift */,
 				D71EEB41219DBF3200094B14 /* DetailVC.swift */,
+				D711171C21A2ECEB00ADF519 /* BounceAnimationVC.swift */,
 				D7D2547B219AE4E700AB9F40 /* SearchResultCell.swift */,
 				D7A173522199E9840005A937 /* SearchResult.swift */,
 				D71EEB3F219D954700094B14 /* UIImageView+DownloadImage.swift */,
 				D7A173442199B3BB0005A937 /* Main.storyboard */,
+				D711171A21A2E0D700ADF519 /* GradientView.swift */,
 				D7D25479219ADAD100AB9F40 /* SearchResultCell.xib */,
 				D71EEB3D219D409D00094B14 /* LoadingCell.xib */,
 				D7D2547D219AE80200AB9F40 /* NothingFoundCell.xib */,
@@ -161,9 +167,11 @@
 				D7A173432199B3BB0005A937 /* SearchVC.swift in Sources */,
 				D71EEB44219DCDB100094B14 /* DimmingPresentationController.swift in Sources */,
 				D7A173532199E9840005A937 /* SearchResult.swift in Sources */,
+				D711171D21A2ECEB00ADF519 /* BounceAnimationVC.swift in Sources */,
 				D7D2547C219AE4E700AB9F40 /* SearchResultCell.swift in Sources */,
 				D7A173412199B3BB0005A937 /* AppDelegate.swift in Sources */,
 				D71EEB40219D954700094B14 /* UIImageView+DownloadImage.swift in Sources */,
+				D711171B21A2E0D700ADF519 /* GradientView.swift in Sources */,
 				D71EEB42219DBF3200094B14 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

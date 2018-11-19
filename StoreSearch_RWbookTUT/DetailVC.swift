@@ -23,6 +23,7 @@ class DetailVC: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+      view.backgroundColor = UIColor.clear
       configure()
         popupView.layer.cornerRadius = 10
       
@@ -103,6 +104,12 @@ extension DetailVC: UIViewControllerTransitioningDelegate {
         presentedViewController: presented,
         presenting: presenting)
   }
+  
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    return BounceAnimationController()
+  }
+  
+  
 }
 
 

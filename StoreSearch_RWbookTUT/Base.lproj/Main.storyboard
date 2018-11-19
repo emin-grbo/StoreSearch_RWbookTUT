@@ -192,7 +192,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="54X-Ub-gr8" firstAttribute="centerY" secondItem="a2u-by-Jao" secondAttribute="centerY" id="0pL-TH-6vy"/>
                             <constraint firstItem="54X-Ub-gr8" firstAttribute="centerX" secondItem="a2u-by-Jao" secondAttribute="centerX" id="Rol-KE-Iid"/>

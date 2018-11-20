@@ -126,11 +126,29 @@ class LandscapeVC: UIViewController {
     
     //Page controll setup
     
-    
-    
-    
+    pageControll.numberOfPages = numPages
+    pageControll.currentPage = 0
     
   }
   
+  @IBAction func pageChanged(_ sender: UIPageControl) {
+    UIView.animate(withDuration: 0.3, delay: 0,
+      options: [.curveEaseInOut], animations: {
+      self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(sender.currentPage), y: 0)
+      },
+      completion: nil)
+  }
+  
+}
 
+
+
+extension LandscapeVC: UIScrollViewDelegate {
+  
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    let width = scrollView.bounds.size.width
+    let page = Int((scrollView.contentOffset.x + width/2) / width)
+    pageControll.currentPage = page
+  }
+  
 }

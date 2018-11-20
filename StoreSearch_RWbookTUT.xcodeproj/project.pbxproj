@@ -13,6 +13,8 @@
 		D71EEB40219D954700094B14 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EEB3F219D954700094B14 /* UIImageView+DownloadImage.swift */; };
 		D71EEB42219DBF3200094B14 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EEB41219DBF3200094B14 /* DetailVC.swift */; };
 		D71EEB44219DCDB100094B14 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71EEB43219DCDB100094B14 /* DimmingPresentationController.swift */; };
+		D7908CE421A44A730011F7B4 /* LandscapeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7908CE321A44A730011F7B4 /* LandscapeVC.swift */; };
+		D7908CE621A476FD0011F7B4 /* FadeOutAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7908CE521A476FD0011F7B4 /* FadeOutAnimationController.swift */; };
 		D7A173412199B3BB0005A937 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A173402199B3BB0005A937 /* AppDelegate.swift */; };
 		D7A173432199B3BB0005A937 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A173422199B3BB0005A937 /* SearchVC.swift */; };
 		D7A173462199B3BB0005A937 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A173442199B3BB0005A937 /* Main.storyboard */; };
@@ -30,6 +32,8 @@
 		D71EEB3F219D954700094B14 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		D71EEB41219DBF3200094B14 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		D71EEB43219DCDB100094B14 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
+		D7908CE321A44A730011F7B4 /* LandscapeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeVC.swift; sourceTree = "<group>"; };
+		D7908CE521A476FD0011F7B4 /* FadeOutAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeOutAnimationController.swift; sourceTree = "<group>"; };
 		D7A1733D2199B3BB0005A937 /* StoreSearch_RWbookTUT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch_RWbookTUT.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A173402199B3BB0005A937 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7A173422199B3BB0005A937 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
@@ -76,7 +80,9 @@
 				D7A173422199B3BB0005A937 /* SearchVC.swift */,
 				D71EEB43219DCDB100094B14 /* DimmingPresentationController.swift */,
 				D71EEB41219DBF3200094B14 /* DetailVC.swift */,
+				D7908CE521A476FD0011F7B4 /* FadeOutAnimationController.swift */,
 				D711171C21A2ECEB00ADF519 /* BounceAnimationVC.swift */,
+				D7908CE321A44A730011F7B4 /* LandscapeVC.swift */,
 				D7D2547B219AE4E700AB9F40 /* SearchResultCell.swift */,
 				D7A173522199E9840005A937 /* SearchResult.swift */,
 				D71EEB3F219D954700094B14 /* UIImageView+DownloadImage.swift */,
@@ -168,6 +174,8 @@
 				D71EEB44219DCDB100094B14 /* DimmingPresentationController.swift in Sources */,
 				D7A173532199E9840005A937 /* SearchResult.swift in Sources */,
 				D711171D21A2ECEB00ADF519 /* BounceAnimationVC.swift in Sources */,
+				D7908CE421A44A730011F7B4 /* LandscapeVC.swift in Sources */,
+				D7908CE621A476FD0011F7B4 /* FadeOutAnimationController.swift in Sources */,
 				D7D2547C219AE4E700AB9F40 /* SearchResultCell.swift in Sources */,
 				D7A173412199B3BB0005A937 /* AppDelegate.swift in Sources */,
 				D71EEB40219D954700094B14 /* UIImageView+DownloadImage.swift in Sources */,

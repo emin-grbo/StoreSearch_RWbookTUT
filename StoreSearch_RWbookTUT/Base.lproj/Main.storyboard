@@ -41,7 +41,7 @@
                                 <items>
                                     <navigationItem id="eGs-dc-kvL">
                                         <nil key="title"/>
-                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Xdg-3Y-oqn">
+                                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="Xdg-3Y-oqn">
                                             <rect key="frame" x="134" y="1" width="300" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
@@ -247,15 +247,19 @@
                     <connections>
                         <outlet property="pageControll" destination="lwt-nS-EGu" id="r23-Qc-ueF"/>
                         <outlet property="scrollView" destination="G3K-2I-FXO" id="VZM-OC-gEK"/>
+                        <segue destination="MQS-O8-Jsq" kind="showDetail" identifier="ShowDetail" id="91N-Tc-LJf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IuK-a5-IBP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1807" y="32"/>
+            <point key="canvasLocation" x="1010" y="-1213"/>
         </scene>
     </scenes>
     <resources>
         <image name="CloseButton" width="15" height="15"/>
         <image name="PriceButton" width="11" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="91N-Tc-LJf"/>
+    </inferredMetricsTieBreakers>
 </document>

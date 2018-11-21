@@ -91,6 +91,7 @@ extension SearchVC: UISearchBarDelegate {
       } )
     
     tableView.reloadData()
+    self.landscapeVC?.searchResultsReceived()
     searchBar.resignFirstResponder()
   }
   
@@ -244,11 +245,16 @@ extension SearchVC {
       //animate
       coordinator.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
         controller.view.alpha = 0
+        
       }) { (UIViewControllerTransitionCoordinatorContext) in
         //remove
         controller.view.removeFromSuperview()
         controller.removeFromParent()
         self.landscapeVC = nil
+        
+        if self.presentedViewController != nil {
+          self.dismiss(animated: true, completion: nil)
+        }
       }
       //-------------------------------------------------------------
     }

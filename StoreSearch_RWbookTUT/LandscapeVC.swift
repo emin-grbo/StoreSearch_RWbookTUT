@@ -50,9 +50,9 @@ class LandscapeVC: UIViewController {
       case .notSearchedYet:
         break
       case .loading:
-        break
+        showSpinner()
       case .noResults:
-        break
+        showNothingFoundLabel()
       case .results(let list):
         tileButtons(list)
       }
@@ -124,6 +124,8 @@ class LandscapeVC: UIViewController {
         }
       }
       downloadImage(for: result, andPlaceOn: button)
+      button.tag = 2000 + index
+      button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
     // Set scroll view content size
@@ -140,9 +142,9 @@ class LandscapeVC: UIViewController {
     
     pageControll.numberOfPages = numPages
     pageControll.currentPage = 0
-    
+    //-------------------------------------------------------------
   }
-//-------------------------------------------------------------
+
   
   
   // Adding images to buttons
@@ -195,5 +197,74 @@ extension LandscapeVC: UIScrollViewDelegate {
     let page = Int((scrollView.contentOffset.x + width/2) / width)
     pageControll.currentPage = page
   }
+  
+  
+  //MARK:- Adding a spinner
+  private func showSpinner() {
+    let spinner = UIActivityIndicatorView(style: .whiteLarge)
+    spinner.center = CGPoint(x: scrollView.bounds.midX + 0.5, y: scrollView.bounds.midY + 0.5)
+    spinner.tag = 1000
+    view.addSubview(spinner)
+    spinner.startAnimating()
+  }
+  //------------------------------------------------------------------------
+  
+  
+  
+  func searchResultsReceived() {
+    hideSpinner()
+    
+    switch search.state {
+    case .notSearchedYet, .loading:
+      break
+    case .noResults:
+      showNothingFoundLabel()
+    case .results(let list):
+      tileButtons(list)
+    }
+    
+  }
+  
+  func hideSpinner() {
+    view.viewWithTag(1000)?.removeFromSuperview()
+  }
+  
+  
+  
+  private func showNothingFoundLabel() {
+    
+    let label = UILabel(frame: CGRect.zero)
+    label.text = "Nothing Found"
+    label.textColor = UIColor.white
+    label.backgroundColor = UIColor.clear
+    label.sizeToFit()
+    
+    var rect = label.frame
+    rect.size.width = ceil(rect.size.width/2)*2
+    rect.size.height = ceil(rect.size.height/2)*2
+    
+    label.frame = rect
+    label.center = CGPoint(x: scrollView.bounds.midX, y: scrollView.bounds.midY)
+    
+    view.addSubview(label)
+    
+  }
+  
+  
+  @objc func buttonPressed(_ sender: UIButton) {
+    performSegue(withIdentifier: "ShowDetail", sender: sender)
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "ShowDetail"{
+      if case .results(let list) = search.state {
+        let controller = segue.destination as! DetailVC
+        let searchResult = list[(sender as! UIButton).tag - 2000]
+        controller.searchResult = searchResult
+      }
+    }
+
+  }
+  
   
 }
